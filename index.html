@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>Maze Game</title>
+	<link rel="stylesheet" href="./css/style.css" />
+	<!--Add this-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+	<!--Add this-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+		integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+	<!--Add this-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+	<!-- <script src="p5.min.js"></script>  -->
+
+</head>
+
+<body>
+	<!-- Header -->
+	<header class="header">
+		<div class="header__logo-box">
+			<img src="./img/Logo_HCMUP.png" class="header__logo" alt="logo">
+		</div>
+		<div class="header__text-box">
+			<h3 class="heading-primary">
+				<span class="heading-primary--main">
+					Nhóm N9103
+				</span>
+				<span class="heading-primary--sub">
+					We are one!
+				</span>
+			</h3>
+		</div>
+	</header>
+
+	<!-- Main  -->
+	<main>
+		<!-- Introduction -->
+		<div class="section-intro" id="intro">
+			<div class="u-center-text u-margin-bottom-big">
+				<h2 class="heading-secondary">
+					GIỚI THIỆU
+				</h2>
+			</div>
+			<div class="row">
+				<div class="col-1-of-2">
+					<h3 class="heading-tertiary u-magin-bottom-small">
+						Mê cung (Maze) là gì?
+					</h3>
+					<p class="paragraph">
+						Mê cung là một con đường hoặc tập hợp các con đường, thường từ lối vào đến mục tiêu. Tạo mê cung
+						là quá trình thiết kế bố cục của các lối đi và các bức tường trong mê cung bằng cách sử dụng một
+						chương trình máy tính.
+						Một mê cung có thể được tạo ra bằng cách bắt đầu với sự sắp xếp định trước của các ô (phổ biến
+						nhất là một lưới hình chữ nhật nhưng có thể có các cách sắp xếp khác) với các vị trí tường giữa
+						chúng. Sự sắp xếp định trước này có thể được coi là một đồ thị liên thông với các cạnh đại diện
+						cho các vị trí tường có thể có và các nút đại diện cho các ô.
+					</p>
+					<h3 class="heading-tertiary u-margin-bottom-small">
+						Một số thuật toán tìm đường ra khỏi mê cung
+					</h3>
+					<p class="paragraph">
+						Có rất nhiều thuật toán tìm đường ra khỏi mê cung như ở đây chúng ta sử dụng thuật toán
+						DFS(Depth-First-Search).
+						Thuật toán này có thể được coi là một thuật toán đệ quy quay lui (Backtracking) là một phiên bản
+						ngẫu nhiên của thuật toán tìm kiếm theo chiều sâu.
+
+					</p>
+					<a href="#FindPath" class="btn-text">Tìm hiểu &rarr;</a>
+				</div>
+				<div class="col-1-of-2">
+					<div class="composition">
+						<img src="./img/MazeExample1.png" alt="Graph" class="composition__photo composition__photo--p1">
+						<img src="./img/MazeExample2.png" alt="SpanningTree"
+							class="composition__photo composition__photo--p2">
+						<img src="./img/MazeExample3.png" alt="MinimumSpanningTree"
+							class="composition__photo composition__photo--p3">
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Maze Generation -->
+		<div class="section-generation" id="generation">
+			<div class="u-center-text u-margin-bottom-big">
+				<h2 class="heading-secondary">
+					Maze Generation
+				</h2>
+			</div>
+			<div class="row">
+
+				<!-- Generation-->
+				<h3 class="heading-tertiary u-magin-bottom-small">
+					Tạo mê cung
+				</h3>
+				<p class="paragraph">
+					Có một số thuật toán tạo mê cung có thể được sử dụng để tạo ra các mê cung n chiều một cách ngẫu
+					nhiên. Dưới đây, chúng ta sẽ thảo luận về một thuật toán tạo mê cung cụ thể coi một mê cung đã
+					hoàn thành như một cái cây, các nhánh của cây đại diện cho các đường đi qua mê cung. Để tạo cây, tìm
+					kiếm theo độ sâu ngẫu nhiên được sử dụng - một thuật toán xây dựng cây một cách ngẫu nhiên cho đến
+					khi cây hoặc mê cung hoàn thành. Để hiểu chi tiết hơn về loại thuật toán tạo mê cung này, bạn nên
+					hiểu cách thức biểu diễn mê cung dưới dạng cây, tiếp theo là cách sử dụng thuật toán duyệt để tạo mê
+					cung.
+				</p>
+				<p class="paragraph">
+					Trong hai chiều, mê cung là một loạt các con đường được ngăn cách bởi các bức tường, và để đơn giản
+					hóa thế hệ, người ta có thể coi mê cung như một lưới 2 chiều. Lưới có chiều rộng và chiều cao và mỗi
+					vị trí x / y trong lưới có thể được biểu diễn dưới dạng một ô. Khi được xem xét theo cách này, lưới
+					có thể được coi là một đồ thị G, trong đó mỗi ô là một nút được kết nối với mỗi trong số bốn lân cận
+					của nó bằng một bức tường (ngoại lệ đối với quy tắc này là đối với các ô cạnh và ô góc có 3 và 2 lân
+					cận , tương ứng). Sau đó, thuật toán tìm, dựa trên một hạt ngẫu nhiên, một cây khung - hoặc cây
+					bao gồm tất cả các đỉnh nhưng chỉ một số cạnh - của biểu đồ G. Thuật toán thực hiện như sau:
+				</p>
+				<p class="paragraph">
+				<ul class="step-list">
+					<li>1.Chọn ngẫu nhiên một nút (hoặc ô) N.</li>
+					<li>2.Đẩy nút N vào Q.</li>
+					<li>3.Đánh dấu ô N là đã thăm (visited).</li>
+					<li>4.Chọn ngẫu nhiên một ô liền kề A của nút N chưa được thăm. Nếu tất cả nút kề của N
+						đã được đến thăm:</li>
+					<li>Tiếp tục bật các mục ra khỏi Q cho đến khi gặp một nút có ít nhất một nút kề
+						không được truy cập - gán nút này cho N và chuyển sang bước 4.</li>
+					<li>Nếu không có nút nào tồn tại: dừng lại.</li>
+					<li>5.Phá vỡ bức tường giữa N và A.</li>
+					<li>6.Gán giá trị A cho N.</li>
+					<li>7.Chuyển sang bước 2.</li>
+				</ul>
+				</p>
+				<div class="col-1-of-2">
+					<img src="./img/PhtoA.PNG" alt="A" class = "step-photo__p1">
+					<img src="./img/PhotoB.PNG" alt="B" class = "step-photo__p2">
+					<img src="./img/PhotoC.PNG" alt="C" class = "step-photo__p3">
+				</div>
+				<p class="paragraph">
+					Biểu đồ và cây kết quả có thể được trực quan hóa dễ dàng hơn bằng cách chạy thuật toán trên một lưới
+					ô nhỏ 5x5 như được minh họa trong hình ảnh và video bên dưới. A) Đồ thị ban đầu G trong đó mỗi ô -
+					hoặc nút - (được mô tả là một vòng tròn màu xanh lam) được kết nối với các cạnh của nó bằng một cạnh
+					(được mô tả là một đường màu đen). B) Cây kết quả trong đó nút ban đầu được mô tả bằng màu xanh lá
+					cây và các nhánh được mô tả bằng màu đỏ. C) Các nhánh của cây đại diện cho các đường đi qua lưới, do
+					đó các bức tường giữa mỗi ô (nút) trong cây bị loại bỏ khi hai ô lân cận được nối với nhau bằng một
+					cạnh trong cây, dẫn đến mê cung cuối cùng.
+				</p>
+			</div>
+		</div>
+
+		<!-- Find Path -->
+		<div class="section-FindPath" id="FindPath">
+			<div class="u-center-text u-margin-bottom-big">
+				<h2 class="heading-secondary">
+					Find Path
+				</h2>
+			</div>
+
+			<div class="row">
+				<h3 class="heading-tertiary u-magin-bottom-small">
+					Các thuật toán tìm đường ra khỏi mê cung
+				</h3>
+				<p class="paragraph">
+					Các thuật toán tìm đường đi trong mê cung là những phương pháp được tự động hóa để giải một mê cung.
+					Các thuật toán chọn đường ngẫu nhiên, bám theo tường, Pledge, và Trémaux được xây dựng để một đối
+					tượng sử dụng chạy bên trong mê cung mà hoàn toàn không có biết trước về mê cung, còn các thuật toán
+					lấp kín đường cụt và đường đi ngắn nhất được thiết kế để sử dụng khi đã biết trước toàn bộ mê cung.
+					Bên dưới đây chúng ta sẽ đề cập đến thuật toán Trémaux dựa trên DFS.
+				</p>
+				<h3 class="heading-tertiary u-magin-bottom-small">
+					Thuật toán Trémaux
+				</h3>
+				<p class="paragraph">
+					Thuật toán Trémaux được Charles Pierre Trémaux phát minh, sử dụng các dấu hiệu để ghi nhớ đường đi,
+					ví dụ đánh dấu trên mặt sàn, là một phương pháp hiệu quả để tìm lối ra của một mê cung. Thuật toán
+					có thể giải tất cả các mê cung có đường đi rõ ràng.
+					<br> <br>
+					Một đường trong mê cung sẽ được ghi nhớ bằng cách đánh dấu bởi một trong 3 trạng thái: chưa qua, đã
+					qua 1 lần hoặc qua 2 lần. Một đường được chọn để đi sẽ luôn được đánh dấu bằng 1 vạch dưới sàn (từ
+					ngã giao này đến ngã giao kia). Tại điểm bắt đầu có thể chọn một hướng bất kỳ (nếu có nhiều hơn một
+					hướng). Khi đến một ngã giao, nếu các đường rẽ đều chưa qua, thì chọn ngẫu nhiên 1 đường để đi và
+					đánh dấu đường ấy 1 vạch. Khi gặp một ngã giao mà đường trước mặt theo hướng đi hiện tại đã có 1
+					dấu, và đường đang đi hiện tại chỉ mới đánh dấu 1 lần, thì quay trở lại và đánh dấu đường ấy 2 vạch.
+					Nếu đến 1 ngã giao mà không rơi vào 2 trường hợp trên, thì chọn đường đi có ít vạch nhất, và nhớ
+					đánh dấu đường ấy luôn. Khi đến đích, thì những con đường chỉ đánh dấu 1 vạch là đường dẫn trở về
+					điểm xuất phát.
+					<br> <br>
+					Nếu không có ngã ra, thì phương pháp này sẽ dẫn người đi trở về lại điểm xuất phát, và khi ấy tất cả
+					con đường sẽ đánh dấu 2 vạch, mỗi vạch tương ứng với 1 hướng đi. Kết quả được gọi là vạch đôi 2
+					chiều.
+
+					Về cơ bản, thuật toán này được phát hiện từ thế kỷ 19 đã được sử dụng khoảng hàng trăm năm sau như
+					một phương pháp tìm kiếm ưu tiên chiều sâu (DFS). Dưới đây là mô phỏng thuật toán Trémaux
+				</p>
+				<img src="./img/Animation.gif" alt="simulation" class = "animation">
+			</div>
+		</div>
+
+		<!-- Maze game -->
+		<div class="section-mazeGame" id="generation">
+			<script src="js/Cell.js"></script>
+			<script src="js/CellType.js"></script>
+			<script src="js/BorderType.js"></script>
+			<script src="js/Maze.js"></script>
+			<script src="js/Direction.js"></script>
+			<script src="js/mazeGame.js"></script>
+		</div>
+	</main>
+
+</body>
+
+</html>
