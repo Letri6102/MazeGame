@@ -1,6 +1,6 @@
 # MazeGame
 
-<h1 align="center">Đề tài kết thúc môn học Lý thuyết đồ thị do giảng viên Trần Thanh Nhã phụ trách</h1> 
+<h1 align="center">Đề tài kết thúc môn học Lý thuyết đồ thị do giảng viên Trần Thanh Nhã, thầy Nguyễn Viết Hưng và thầy Lương Trần Ngọc Khiết phụ trách</h1> 
 
 <p align="center"><Đề tài nhóm N9103 thực hiện việc tìm đường ra khỏi mê cung ></p>
 
